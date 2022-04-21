@@ -10,7 +10,8 @@ export default function Home() {
   const dispatch = useDispatch()
 
   const newTask = {
-    task: 'NEW TASK',
+    uid: 5,
+    title: 'NEW TASK',
     status: 'completed',
     priority: 'high'
 
@@ -20,7 +21,16 @@ export default function Home() {
 
     <div>Tasks Page:
 
-      {tasks.map(() => <Task />)}
+      {tasks.map((task, idx) =>
+        <Task
+          key={`task-${idx}`}
+          {...task}
+        />
+      )}
+
+      <br />
+      ============
+      <br />
 
       <button
         onClick={() => dispatch(addTask(newTask))}

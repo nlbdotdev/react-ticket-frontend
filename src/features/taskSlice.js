@@ -3,22 +3,26 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     tasks: [
         {
-            task: 'task one',
+            uid: 1,
+            title: 'task one',
             status: 'completed',
             priority: 'high'
         },
         {
-            task: 'task two',
+            uid: 2,
+            title: 'task two',
             status: 'incompleted',
             priority: 'medium'
         },
         {
-            task: 'task three',
+            uid: 3,
+            title: 'task three',
             status: 'completed',
             priority: 'low'
         },
         {
-            task: 'task four',
+            uid: 4,
+            title: 'task four',
             status: 'incompleted',
             priority: 'high'
         },

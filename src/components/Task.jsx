@@ -1,7 +1,12 @@
 import React from 'react'
 
-export default function Task() {
+export default function Task(props) {
+
+  const {uid, title, status, priority} = props
+
   return (
-    <div>Task</div>
+    <div>
+      Task: {title} || {status} || {priority} || {uid}
+    </div>
   )
 }
