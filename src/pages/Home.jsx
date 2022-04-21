@@ -1,37 +1,30 @@
 import React from 'react'
 import Task from '../components/Task'
 
-const tasks = [
-  {
-    task: 'task one',
-    status: 'completed',
-    priority: 'high'
-  },
-  {
-    task: 'task two',
-    status: 'incompleted',
-    priority: 'medium'
-  },
-  {
-    task: 'task three',
-    status: 'completed',
-    priority: 'low'
-  },
-  {
-    task: 'task four',
-    status: 'incompleted',
-    priority: 'high'
-  },
-]
+import { useDispatch, useSelector } from 'react-redux'
+import { addTask } from '../features/taskSlice'
 
 export default function Home() {
+
+  const tasks = useSelector(state => state.task.tasks)
+  const dispatch = useDispatch()
+
+  const newTask = {
+    task: 'NEW TASK',
+    status: 'completed',
+    priority: 'high'
+
+  }
+
   return (
 
-    <div>Home
+    <div>Tasks Page:
 
-      {tasks.map(() => {
-        return <Task />
-      })}
+      {tasks.map(() => <Task />)}
+
+      <button
+        onClick={() => dispatch(addTask(newTask))}
+      >Add Task</button>
 
     </div>
 
