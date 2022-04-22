@@ -23,6 +23,20 @@ const createTask = async (req, res) => {
     }
 }
 
+const getAllTasks = async (req, res) => {
+
+    try {
+        let allTasks = await Task.find()
+        res.status(200).json(
+            allTasks
+        )
+    } catch (error) {
+        res.status(500).json({ message: "Error", error: error })
+    }
+
+}
+
 module.exports = {
     createTask,
+    getAllTasks
 }
