@@ -1,3 +1,4 @@
+require("dotenv").config()
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -6,6 +7,15 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+const mongoose = require("mongoose")
+
+mongoose.connect(process.env.MONGODB_URI)
+.then(() => {
+console.log("CONNECTED TO MONGODB")
+})
+.catch((error) => {
+console.log("Error:", error)
+})
 
 var app = express();
 
@@ -19,6 +29,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Routes
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
