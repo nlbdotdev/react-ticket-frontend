@@ -38,13 +38,9 @@ export default function Home() {
 
       <label>Title: </label>
       <input
+        id='title'
         value={newTask.title}
-        onChange={e => setNewTask(
-          {
-            ...newTask,
-            title: e.target.value
-          }
-        )}
+        onChange={e => setNewTask({ ...newTask, [e.target.id]: e.target.value })}
       ></input>
 
       <br />
