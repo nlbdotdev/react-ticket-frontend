@@ -6,7 +6,9 @@ import { addTask } from '../features/taskSlice'
 
 export default function Home() {
 
-  const [newTask, setNewTask] = useState("Yadda")
+  const [newTask, setNewTask] = useState({
+    title: 'yeet'
+  })
 
   const tasks = useSelector(state => state.task.tasks)
   const dispatch = useDispatch()
@@ -36,13 +38,25 @@ export default function Home() {
 
       <label>Title: </label>
       <input
-        value={newTask}
-        onChange={e => setNewTask(e.target.value)}
+        value={newTask.title}
+        onChange={e => setNewTask(
+          {
+            ...newTask,
+            title: e.target.value
+          }
+        )}
       ></input>
 
       <br />
       <button
-        onClick={() => dispatch(addTask(testTask))}
+        onClick={() => dispatch(addTask(
+          {
+            uid: 5,
+            title: newTask.title,
+            status: 'completed',
+            priority: 'high'
+          }
+        ))}
       >Add Task</button>
 
     </div>
