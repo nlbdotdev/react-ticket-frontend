@@ -2,11 +2,16 @@ import React, { useEffect, useState } from 'react'
 import Task from '../components/Task'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { addTask, fetchTasks } from '../features/taskSlice'
+import { addTask, fetchTasks, postTask } from '../features/taskSlice'
 
 export default function Home() {
 
   const [taskJSON, setTasks] = useState('[]')
+
+  useEffect(() => {
+    dispatch(fetchTasks())
+  }, [])
+
 
   const getTasks = async () => {
     let response = await fetch('http://localhost:3001/tasks/get-all-tasks', {
@@ -68,7 +73,7 @@ export default function Home() {
       ></input>
 
       <br />
-      <button
+      {/* <button
         onClick={() => dispatch(addTask(
           {
             uid: 5,
@@ -77,19 +82,32 @@ export default function Home() {
             priority: 'high'
           }
         ))}
-      >Add Task</button>
+      >Add Task</button> */}
 
       <br />
-      <button
+
+      {/* <button
         onClick={() => {
           getTasks()
         }}
-      >React Async</button>
-      <br/>
+      >React Async</button> */}
+
+      <button
+      onClick={() => dispatch(postTask(testTask))}
+      >  Post Task</button>
+
+      <br />
+
       <button
         onClick={() => dispatch(fetchTasks())}
-      >Thunk Request</button>
+      >Fetch Tasks</button>
+
+      <br />
+
+  
     </div>
 
   )
 }
+
+

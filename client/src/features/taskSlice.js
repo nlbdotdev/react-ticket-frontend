@@ -38,15 +38,30 @@ export const taskSlice = createSlice({
         }
     },
     extraReducers(builder) {
-        builder.addCase(fetchTasks.fulfilled, (state, action) => {
-            state.tasks = action.payload
-            console.log("Fetch Tasks Fufilled!")
-        })
+        builder
+            // fetchTasks
+            .addCase(fetchTasks.fulfilled, (state, action) => {
+                state.tasks = action.payload
+                console.log("Fetch Tasks Fufilled!")
+            })
             .addCase(fetchTasks.pending, (state, action) => {
                 console.log("Fetch Tasks Pending")
             })
             .addCase(fetchTasks.rejected, (state, action) => {
                 console.log("Fetch Tasks Rejected!")
+            })
+            // addTask
+            .addCase(postTask.fulfilled, (state, action) => {
+                console.log("Post Task Fufilled!")
+                console.log(action.payload)
+                // fetchTasks()
+            })
+            .addCase(postTask.pending, (state, action) => {
+                console.log("Post Task Pending")
+            })
+            .addCase(postTask.rejected, (state, action) => {
+                console.log("Post Task Rejected!")
+
             })
     }
 })
@@ -54,7 +69,22 @@ export const taskSlice = createSlice({
 export const fetchTasks = createAsyncThunk('task/fetchTasks', async () => {
     const response = await fetch('http://localhost:3001/tasks/get-all-tasks')
     let responseJSON = response.json()
-    console.log(responseJSON)
+    return responseJSON
+})
+
+export const postTask = createAsyncThunk('task/postTasks', async (data) => {
+    console.log(data)
+    const response = await fetch(`http://localhost:3001/tasks/create-task`, {
+        headers: {
+            'Content-Type': 'application/json'
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+          },
+        method: "POST",
+        body: JSON.stringify(data)
+    });
+    let responseJSON = response.json()
+    // console.log(responseJSON)
+   
     return responseJSON
 })
 
