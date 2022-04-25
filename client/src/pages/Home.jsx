@@ -1,10 +1,34 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Task from '../components/Task'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { addTask } from '../features/taskSlice'
+import { addTask, fetchTasks } from '../features/taskSlice'
 
 export default function Home() {
+
+  const [taskJSON, setTasks] = useState('[]')
+
+  const getTasks = async () => {
+    let response = await fetch('http://localhost:3001/tasks/get-all-tasks', {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "access-control-request-headers": "content-type",
+        "x-Trigger": "CORS",
+      }
+    })
+    let responseJSON = await response.json()
+    setTasks(responseJSON)
+    console.log(responseJSON)
+    return responseJSON
+  }
+
+  useEffect(() => {
+    getTasks()
+  }, [])
+
 
   const [newTask, setNewTask] = useState({
     title: 'yeet'
@@ -55,6 +79,16 @@ export default function Home() {
         ))}
       >Add Task</button>
 
+      <br />
+      <button
+        onClick={() => {
+          getTasks()
+        }}
+      >React Async</button>
+      <br/>
+      <button
+        onClick={() => dispatch(fetchTasks())}
+      >Thunk Request</button>
     </div>
 
   )

@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     tasks: [
@@ -36,7 +36,26 @@ export const taskSlice = createSlice({
         addTask: (state, action) => {
             state.tasks.push(action.payload)
         }
+    },
+    extraReducers(builder) {
+        builder.addCase(fetchTasks.fulfilled, (state, action) => {
+            state.tasks = action.payload
+            console.log("Fetch Tasks Fufilled!")
+        })
+            .addCase(fetchTasks.pending, (state, action) => {
+                console.log("Fetch Tasks Pending")
+            })
+            .addCase(fetchTasks.rejected, (state, action) => {
+                console.log("Fetch Tasks Rejected!")
+            })
     }
+})
+
+export const fetchTasks = createAsyncThunk('task/fetchTasks', async () => {
+    const response = await fetch('http://localhost:3001/tasks/get-all-tasks')
+    let responseJSON = response.json()
+    console.log(responseJSON)
+    return responseJSON
 })
 
 export const { addTask } = taskSlice.actions
