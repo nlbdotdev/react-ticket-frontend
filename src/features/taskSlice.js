@@ -67,14 +67,15 @@ export const taskSlice = createSlice({
 })
 
 export const fetchTasks = createAsyncThunk('task/fetchTasks', async () => {
-    const response = await fetch('https://react-ticket-frontend.herokuapp.com/tasks/get-all-tasks')
+    // const response = await fetch('http://localhost:3001/tasks/get-all-tasks')
+    const response = await fetch('https://react-ticket-server.herokuapp.com/tasks/get-all-tasks')
     let responseJSON = response.json()
     return responseJSON
 })
 
 export const postTask = createAsyncThunk('task/postTasks', async (data) => {
     console.log(data)
-    const response = await fetch(`https://react-ticket-frontend.herokuapp.com/tasks/create-task`, {
+    const response = await fetch(`https://react-ticket-server.herokuapp.com/tasks/create-task`, {
         headers: {
             'Content-Type': 'application/json'
             // 'Content-Type': 'application/x-www-form-urlencoded',
