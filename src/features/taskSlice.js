@@ -82,7 +82,7 @@ export const fetchTasks = createAsyncThunk('task/fetchTasks', async () => {
         mode: "cors",
         method: "GET"
     })
-    let responseJSON = response.json()
+    let responseJSON = await response.json()
     return responseJSON
 })
 
@@ -97,7 +97,7 @@ export const postTask = createAsyncThunk('task/postTasks', async (data) => {
         method: "POST",
         body: JSON.stringify(data)
     });
-    let responseJSON = response.json()
+    let responseJSON = await response.json()
     // console.log(responseJSON)
 
     return responseJSON
