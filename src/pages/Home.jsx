@@ -2,54 +2,24 @@ import React, { useEffect, useState } from 'react'
 import Task from '../components/Task'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { addTask, fetchTasks, postTask } from '../features/taskSlice'
+import { fetchTasks, postTask } from '../features/taskSlice'
 
 export default function Home() {
 
-  const [taskJSON, setTasks] = useState('[]')
-
-  useEffect(() => {
-    dispatch(fetchTasks())
-  }, [])
-
-
-  const getTasks = async () => {
-    let response = await fetch('http://localhost:3001/tasks/get-all-tasks', {
-      method: "GET",
-      mode: "cors",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        "access-control-request-headers": "content-type",
-        "x-Trigger": "CORS",
-      }
-    })
-    let responseJSON = await response.json()
-    setTasks(responseJSON)
-    console.log(responseJSON)
-    return responseJSON
-  }
-
-  useEffect(() => {
-    // getTasks()
-    dispatch(fetchTasks())
-  }, [])
-
-
+  // Vars
+  const dispatch = useDispatch()
+  const tasks = useSelector(state => state.task.tasks)
   const [newTask, setNewTask] = useState({
-    title: 'yeet'
+    uid: 1,
+    title: 'New Task',
+    status: 'incomplete',
+    priority: 'medium'
   })
 
-  const tasks = useSelector(state => state.task.tasks)
-  const dispatch = useDispatch()
-
-  const testTask = {
-    uid: 5,
-    title: 'NEW TASK',
-    status: 'completed',
-    priority: 'high'
-
-  }
+  // Fetch tasks on load
+  useEffect(() => {
+    dispatch(fetchTasks())
+  }, [])
 
   return (
 
@@ -67,48 +37,42 @@ export default function Home() {
       <br />
 
       <label>Title: </label>
+
       <input
         id='title'
         value={newTask.title}
         onChange={e => setNewTask({ ...newTask, [e.target.id]: e.target.value })}
       ></input>
-
-      <br />
-      {/* <button
-        onClick={() => dispatch(addTask(
-          {
-            uid: 5,
-            title: newTask.title,
-            status: 'completed',
-            priority: 'high'
-          }
-        ))}
-      >Add Task</button> */}
-
       <br />
 
-      {/* <button
-        onClick={() => {
-          getTasks()
-        }}
-      >React Async</button> */}
+      <label>Status: </label>
+
+      <input
+        id='status'
+        value={newTask.status}
+        onChange={e => setNewTask({ ...newTask, [e.target.id]: e.target.value })}
+      ></input>
+      <br />
+
+      <label>Priority: </label>
+
+      <input
+        id='priority'
+        value={newTask.priority}
+        onChange={e => setNewTask({ ...newTask, [e.target.id]: e.target.value })}
+      ></input>
+      <br />
 
       <button
-      onClick={() => dispatch(postTask(testTask))}
+        onClick={() => dispatch(postTask(newTask))}
       >  Post Task</button>
-
       <br />
 
       <button
         onClick={() => dispatch(fetchTasks())}
       >Fetch Tasks</button>
-
       <br />
 
-  
     </div>
-
   )
 }
-
-
