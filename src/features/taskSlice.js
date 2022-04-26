@@ -1,5 +1,16 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
+let url = ''
+
+if (process.env.REACT_APP_DEV_ENV === "local") {
+    url = 'http://localhost:3001'
+} else if (process.env.REACT_APP_DEV_ENV === "heroku") {
+    url = 'https://react-ticket-server.herokuapp.com'
+} 
+
+console.log('url:', url)
+console.log(process.env.REACT_APP_DEV_ENV)
+
 const initialState = {
     tasks: [
         {
@@ -67,8 +78,7 @@ export const taskSlice = createSlice({
 })
 
 export const fetchTasks = createAsyncThunk('task/fetchTasks', async () => {
-    // const response = await fetch('http://localhost:3001/tasks/get-all-tasks')
-    const response = await fetch('https://react-ticket-server.herokuapp.com/tasks/get-all-tasks', {
+    const response = await fetch(`${url}/tasks/get-all-tasks`, {
         mode: "cors",
         method: "GET"
     })
@@ -78,7 +88,7 @@ export const fetchTasks = createAsyncThunk('task/fetchTasks', async () => {
 
 export const postTask = createAsyncThunk('task/postTasks', async (data) => {
     console.log(data)
-    const response = await fetch(`https://react-ticket-server.herokuapp.com/tasks/create-task`, {
+    const response = await fetch(`${url}/tasks/create-task`, {
         headers: {
             'Content-Type': 'application/json'
             // 'Content-Type': 'application/x-www-form-urlencoded',

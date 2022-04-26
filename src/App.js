@@ -2,6 +2,7 @@ import Navbar from './components/Navbar';
 import React, { Component } from 'react'
 import { Outlet } from 'react-router-dom';
 
+
 export class App extends Component {
   render() {
     return (

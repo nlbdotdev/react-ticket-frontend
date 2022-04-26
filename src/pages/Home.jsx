@@ -31,7 +31,8 @@ export default function Home() {
   }
 
   useEffect(() => {
-    getTasks()
+    // getTasks()
+    dispatch(fetchTasks())
   }, [])
 
 
