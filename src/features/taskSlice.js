@@ -13,30 +13,30 @@ console.log(process.env.REACT_APP_DEV_ENV)
 
 const initialState = {
     tasks: [
-        {
-            uid: 1,
-            title: 'task one',
-            status: 'completed',
-            priority: 'high'
-        },
-        {
-            uid: 2,
-            title: 'task two',
-            status: 'incompleted',
-            priority: 'medium'
-        },
-        {
-            uid: 3,
-            title: 'task three',
-            status: 'completed',
-            priority: 'low'
-        },
-        {
-            uid: 4,
-            title: 'task four',
-            status: 'incompleted',
-            priority: 'high'
-        },
+        // {
+        //     uid: 1,
+        //     title: 'task one',
+        //     status: 'completed',
+        //     priority: 'high'
+        // },
+        // {
+        //     uid: 2,
+        //     title: 'task two',
+        //     status: 'incompleted',
+        //     priority: 'medium'
+        // },
+        // {
+        //     uid: 3,
+        //     title: 'task three',
+        //     status: 'completed',
+        //     priority: 'low'
+        // },
+        // {
+        //     uid: 4,
+        //     title: 'task four',
+        //     status: 'incompleted',
+        //     priority: 'high'
+        // },
     ]
 }
 
@@ -65,7 +65,7 @@ export const taskSlice = createSlice({
             .addCase(postTask.fulfilled, (state, action) => {
                 console.log("Post Task Fufilled!")
                 console.log(action.payload)
-                // fetchTasks()
+                // dispatch(fetchTasks())
             })
             .addCase(postTask.pending, (state, action) => {
                 console.log("Post Task Pending")
