@@ -53,6 +53,7 @@ export const taskSlice = createSlice({
             // fetchTasks
             .addCase(fetchTasks.fulfilled, (state, action) => {
                 state.tasks = action.payload
+                console.log(action.payload)
                 console.log("Fetch Tasks Fufilled!")
             })
             .addCase(fetchTasks.pending, (state, action) => {
@@ -91,7 +92,6 @@ export const postTask = createAsyncThunk('task/postTasks', async (data) => {
     const response = await fetch(`${url}/tasks/create-task`, {
         headers: {
             'Content-Type': 'application/json'
-            // 'Content-Type': 'application/x-www-form-urlencoded',
         },
         mode: "cors",
         method: "POST",
