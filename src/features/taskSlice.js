@@ -6,7 +6,7 @@ if (process.env.REACT_APP_DEV_ENV === "local") {
     url = 'http://localhost:3001'
 } else if (process.env.REACT_APP_DEV_ENV === "heroku") {
     url = 'https://react-ticket-server.herokuapp.com'
-} 
+}
 
 console.log('url:', url)
 console.log(process.env.REACT_APP_DEV_ENV)
@@ -83,8 +83,18 @@ export const fetchTasks = createAsyncThunk('task/fetchTasks', async () => {
         mode: "cors",
         method: "GET"
     })
+
     let responseJSON = await response.json()
-    return responseJSON
+
+    let mappedJSON = responseJSON.map((taskObj) => {
+        return {
+            ...taskObj,
+            time_created: new Date(taskObj.time_created),
+            time_updated: new Date(taskObj.time_updated)
+        }
+    })
+
+    return mappedJSON
 })
 
 export const postTask = createAsyncThunk('task/postTasks', async (data) => {
