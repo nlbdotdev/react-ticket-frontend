@@ -4,7 +4,11 @@ import Task from '../components/Task'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchTasks, postTask } from '../features/taskSlice'
 
+
+
 export default function Home() {
+
+  const tempDate = new Date('2022-03-23T16:12:14.771477+00:00')
 
   // Vars
   const dispatch = useDispatch()
@@ -12,8 +16,11 @@ export default function Home() {
   const [newTask, setNewTask] = useState({
     uid: 1,
     title: 'New Task',
+    desc: 'this is a description',
+    severity: 'B',
     status: 'incomplete',
-    priority: 'medium'
+    time_created: tempDate,
+    time_updated: tempDate,
   })
 
   // Fetch tasks on load
@@ -54,11 +61,11 @@ export default function Home() {
       ></input>
       <br />
 
-      <label>Priority: </label>
+      <label>Severity: </label>
 
       <input
-        id='priority'
-        value={newTask.priority}
+        id='severity'
+        value={newTask.severity}
         onChange={e => setNewTask({ ...newTask, [e.target.id]: e.target.value })}
       ></input>
       <br />
