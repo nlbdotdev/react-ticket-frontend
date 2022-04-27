@@ -14,10 +14,10 @@ async function getDate() {
 }
 
 function printDate(dateObj) {
-    // console.log(dateObj instanceof Date)
-    // if (!(dateObj instanceof Date)) {
-    //     dateObj = new Date(dateObj)
-    // }
+    // Date may have to be converted because redux doesn't like storing Date Objs
+    if (!(dateObj instanceof Date)) {
+        dateObj = new Date(dateObj)
+    }
     return date.format(dateObj, 'MM/DD/YYYY HH:mm')
 }
 

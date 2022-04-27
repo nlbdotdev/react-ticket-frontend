@@ -85,20 +85,10 @@ export const fetchTasks = createAsyncThunk('task/fetchTasks', async () => {
     })
 
     let responseJSON = await response.json()
-
-    let mappedJSON = responseJSON.map((taskObj) => {
-        return {
-            ...taskObj,
-            time_created: new Date(taskObj.time_created),
-            time_updated: new Date(taskObj.time_updated)
-        }
-    })
-
-    return mappedJSON
+    return responseJSON
 })
 
 export const postTask = createAsyncThunk('task/postTasks', async (data) => {
-    console.log(data)
     const response = await fetch(`${url}/tasks/create-task`, {
         headers: {
             'Content-Type': 'application/json'
@@ -106,10 +96,9 @@ export const postTask = createAsyncThunk('task/postTasks', async (data) => {
         mode: "cors",
         method: "POST",
         body: JSON.stringify(data)
-    });
+    })
+    
     let responseJSON = await response.json()
-    // console.log(responseJSON)
-
     return responseJSON
 })
 
