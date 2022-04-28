@@ -5,9 +5,6 @@ import NewTask from './NewTask'
 import Tasks from './Tasks'
 
 export default function Home() {
-
-
-
   // Vars
   const dispatch = useDispatch()
   const tasks = useSelector(state => state.task.tasks)
@@ -18,10 +15,13 @@ export default function Home() {
   }, [])
 
   return (
-    <div>
-      <Tasks tasks={tasks} />
-      <br /> =====================<br />
-      <NewTask />
+    <div className='main'>
+      <div className='tasks'>
+        <Tasks tasks={tasks} />
+      </div>
+      <div className='editor'>
+        <NewTask />
+      </div>
     </div>
   )
 }

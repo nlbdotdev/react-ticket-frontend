@@ -23,3 +23,7 @@
 - React Router
 - Login with google / github
 - UUID
+
+# Other:
+- Should move datetime stuff to backend
+- Check out mantine for ui stuff

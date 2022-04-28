@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchTasks, postTask } from '../features/taskSlice'
+import { getDate } from '../middleware/datetime'
+
+// do time and ID automatically, accept other fields
+// make severity and status enums
+// on post > fetch up to date task list, so you have an accurate ID, use that id, and fetch time...
+// you could have a server state management to prevent multiple bugs from submitting... e.g: adding bug status
 
 export default function NewTask() {
 
-  const tempDate = new Date('2022-03-23T16:12:14.771477+00:00')
+  const tempDate = new Date()
   const dispatch = useDispatch()
 
   const [newTask, setNewTask] = useState({
-    uid: 1,
     title: 'New Task',
     desc: 'this is a description',
     severity: 'B',
@@ -17,9 +22,24 @@ export default function NewTask() {
     time_updated: tempDate,
   })
 
+  const submitTask = async () => {
+
+    const currentTime = await getDate()
+
+    setNewTask({
+      ...newTask,
+      time_created: currentTime,
+      time_updated: currentTime
+    })
+
+    console.log('hello')
+    dispatch(postTask(newTask))
+  }
+
   return (
     <div>
       New Task Page:
+      <br />
 
       <label>Title: </label>
 
@@ -29,6 +49,16 @@ export default function NewTask() {
         onChange={e => setNewTask({ ...newTask, [e.target.id]: e.target.value })}
       ></input>
       <br />
+
+      <label>Description: </label>
+
+      <textarea
+        id='desc'
+        value={newTask.desc}
+        onChange={e => setNewTask({ ...newTask, [e.target.id]: e.target.value })}
+      />
+      <br />
+
 
       <label>Status: </label>
 
@@ -49,7 +79,7 @@ export default function NewTask() {
       <br />
 
       <button
-        onClick={() => dispatch(postTask(newTask))}
+        onClick={() => submitTask()}
       >  Post Task</button>
       <br />
 
