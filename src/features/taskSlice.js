@@ -39,7 +39,7 @@ const initialState = {
         // },
     ],
     // UID of the task to edit, if it is -1, it is treated as a new task
-    activeTask: '-1'
+    activeTask: -1
 }
 
 export const taskSlice = createSlice({

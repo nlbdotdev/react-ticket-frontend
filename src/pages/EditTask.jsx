@@ -8,81 +8,92 @@ import { getDate } from '../middleware/datetime'
 // on post > fetch up to date task list, so you have an accurate ID, use that id, and fetch time...
 // you could have a server state management to prevent multiple bugs from submitting... e.g: adding bug status
 
-export default function EditTask() {
+export default function EditTask({ taskUID }) {
 
-  const tempDate = new Date()
-  const dispatch = useDispatch()
+    const tempDate = new Date()
+    const dispatch = useDispatch()
 
-  const [newTask, setNewTask] = useState({
-    title: 'New Task',
-    desc: 'this is a description',
-    severity: 'B',
-    status: 'incomplete',
-    time_created: tempDate,
-    time_updated: tempDate,
-  })
-
-  const submitTask = async () => {
-
-    const currentTime = await getDate()
-
-    setNewTask({
-      ...newTask,
-      time_created: currentTime,
-      time_updated: currentTime
+    const [task, updateTask] = useState({
+        title: "",
+        desc: "",
+        severity: "",
+        status: "",
+        time_created: tempDate,
+        time_updated: tempDate,
     })
 
-    console.log('hello')
-    dispatch(postTask(newTask))
-  }
+    const importTask = useSelector(state =>
 
-  return (
-    <div>
-      Edit Task Page:
-      <br />
+        state.task.tasks.filter(taskObj => {
+            return taskObj.uid === taskUID
+        })[0]
 
-      <label>Title: </label>
+    )
 
-      <input
-        id='title'
-        value={newTask.title}
-        onChange={e => setNewTask({ ...newTask, [e.target.id]: e.target.value })}
-      ></input>
-      <br />
+    useEffect(() => {
+        updateTask(importTask)
+    }, [importTask])
 
-      <label>Description: </label>
+    const submitTask = async () => {
 
-      <textarea
-        id='desc'
-        value={newTask.desc}
-        onChange={e => setNewTask({ ...newTask, [e.target.id]: e.target.value })}
-      />
-      <br />
+        const currentTime = await getDate()
+
+        updateTask({
+            ...task,
+            time_created: currentTime,
+            time_updated: currentTime
+        })
+
+        dispatch(postTask(task))
+    }
 
 
-      <label>Status: </label>
+    return (
+        <div>
+            Editing Task: {taskUID}
+            <br />
 
-      <input
-        id='status'
-        value={newTask.status}
-        onChange={e => setNewTask({ ...newTask, [e.target.id]: e.target.value })}
-      ></input>
-      <br />
+            <label>Title: </label>
 
-      <label>Severity: </label>
+            <input
+                id='title'
+                value={task.title}
+                onChange={e => updateTask({ ...task, [e.target.id]: e.target.value })}
+            ></input>
+            <br />
 
-      <input
-        id='severity'
-        value={newTask.severity}
-        onChange={e => setNewTask({ ...newTask, [e.target.id]: e.target.value })}
-      ></input>
-      <br />
+            <label>Description: </label>
 
-      <button
-        onClick={() => submitTask()}
-      >  Post Task</button>
-      <br />
-    
-    </div>
-  )
+            <textarea
+                id='desc'
+                value={task.desc}
+                onChange={e => updateTask({ ...task, [e.target.id]: e.target.value })}
+            />
+            <br />
+
+            <label>Status: </label>
+
+            <input
+                id='status'
+                value={task.status}
+                onChange={e => updateTask({ ...task, [e.target.id]: e.target.value })}
+            ></input>
+            <br />
+
+            <label>Severity: </label>
+
+            <input
+                id='severity'
+                value={task.severity}
+                onChange={e => updateTask({ ...task, [e.target.id]: e.target.value })}
+            ></input>
+            <br />
+
+            <button
+                onClick={() => submitTask()}
+            >  Post Task</button>
+            <br />
+
+        </div>
+    )
 }

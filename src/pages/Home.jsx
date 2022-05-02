@@ -18,19 +18,16 @@ export default function Home() {
 
   return (
     <div className='main'>
+
       <div className='tasks'>
         <Tasks tasks={tasks} />
       </div>
+
       <div className='editor'>
-  
-      {/* Get active tasks, if -1, render newTask, else render EditTask, passing in current activeTask as prop */}
-        {/* <NewTask />
-        <EditTask /> */}
-        
-        {(activeTask === -1) ? 
-          'NEW TASK!'
-        :
-          'EDIT TASK: ' + activeTask 
+        {(activeTask === -1) ?
+          <NewTask />
+          :
+          <EditTask taskUID={activeTask} />
         }
       </div>
     </div>

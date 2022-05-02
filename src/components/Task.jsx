@@ -4,16 +4,13 @@ import { setActiveTask } from '../features/taskSlice'
 import { printDate } from '../middleware/datetime'
 
 export default function Task({ uid, title, desc, status, severity, time_created, time_updated }) {
-  
+
   const dispatch = useDispatch()
 
-  
   return (
-    
-   
-    // on click > load editTask in editor window, change editor component
     <div className='task task--task'
-          onClick={() => dispatch(setActiveTask(uid))}
+      // Set clicked task as the active task in editor
+      onClick={() => dispatch(setActiveTask(uid))}
     >
       <div className="task__uid">#{uid}</div>
       <div className="task__title">{title}</div>
