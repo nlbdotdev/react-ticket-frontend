@@ -36,6 +36,12 @@
     display: flex;
     /* justify-content: space-between; */
   }
+
+  .task:hover {
+    border: red 3px solid;
+    margin: 7px;
+    cursor: pointer;
+  }
   
   .task > div {
     border: #282c34 1px solid;

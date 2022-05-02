@@ -8,7 +8,7 @@ import { getDate } from '../middleware/datetime'
 // on post > fetch up to date task list, so you have an accurate ID, use that id, and fetch time...
 // you could have a server state management to prevent multiple bugs from submitting... e.g: adding bug status
 
-export default function NewTask() {
+export default function EditTask() {
 
   const tempDate = new Date()
   const dispatch = useDispatch()
@@ -38,7 +38,7 @@ export default function NewTask() {
 
   return (
     <div>
-      New Task Page:
+      Edit Task Page:
       <br />
 
       <label>Title: </label>

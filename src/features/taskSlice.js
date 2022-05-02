@@ -37,7 +37,9 @@ const initialState = {
         //     status: 'incompleted',
         //     priority: 'high'
         // },
-    ]
+    ],
+    // UID of the task to edit, if it is -1, it is treated as a new task
+    activeTask: '-1'
 }
 
 export const taskSlice = createSlice({
@@ -46,6 +48,9 @@ export const taskSlice = createSlice({
     reducers: {
         addTask: (state, action) => {
             state.tasks.push(action.payload)
+        },
+        setActiveTask: (state, action) => {
+            state.activeTask = (action.payload)
         }
     },
     extraReducers(builder) {
@@ -102,5 +107,5 @@ export const postTask = createAsyncThunk('task/postTasks', async (data) => {
     return responseJSON
 })
 
-export const { addTask } = taskSlice.actions
+export const { addTask, setActiveTask } = taskSlice.actions
 export default taskSlice.reducer
