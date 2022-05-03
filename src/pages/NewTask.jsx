@@ -22,6 +22,7 @@ export default function NewTask() {
     time_updated: tempDate,
   })
 
+  // This middleware function will be redundant w/ timestamps
   const submitTask = async () => {
 
     const currentTime = await getDate()

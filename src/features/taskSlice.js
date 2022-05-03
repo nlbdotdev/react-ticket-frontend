@@ -67,7 +67,7 @@ export const taskSlice = createSlice({
             .addCase(fetchTasks.rejected, (state, action) => {
                 console.log("Fetch Tasks Rejected!")
             })
-            // addTask
+            // postTask
             .addCase(postTask.fulfilled, (state, action) => {
                 console.log("Post Task Fufilled!")
                 console.log(action.payload)
@@ -78,6 +78,19 @@ export const taskSlice = createSlice({
             })
             .addCase(postTask.rejected, (state, action) => {
                 console.log("Post Task Rejected!")
+
+            })
+            // updateTask
+            .addCase(updateTask.fulfilled, (state, action) => {
+                console.log("Update Task Fufilled!")
+                console.log(action.payload)
+                // dispatch(fetchTasks())
+            })
+            .addCase(updateTask.pending, (state, action) => {
+                console.log("Update Task Pending")
+            })
+            .addCase(updateTask.rejected, (state, action) => {
+                console.log("Update Task Rejected!")
 
             })
     }
@@ -93,7 +106,7 @@ export const fetchTasks = createAsyncThunk('task/fetchTasks', async () => {
     return responseJSON
 })
 
-export const postTask = createAsyncThunk('task/postTasks', async (data) => {
+export const postTask = createAsyncThunk('task/postTask', async (data) => {
     const response = await fetch(`${url}/tasks/create-task`, {
         headers: {
             'Content-Type': 'application/json'
@@ -102,7 +115,21 @@ export const postTask = createAsyncThunk('task/postTasks', async (data) => {
         method: "POST",
         body: JSON.stringify(data)
     })
-    
+
+    let responseJSON = await response.json()
+    return responseJSON
+})
+
+export const updateTask = createAsyncThunk('task/updateTask', async (data) => {
+    const response = await fetch(`${url}/tasks/update-task`, {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        mode: "cors",
+        method: "PUT",
+        body: JSON.stringify(data)
+    })
+
     let responseJSON = await response.json()
     return responseJSON
 })

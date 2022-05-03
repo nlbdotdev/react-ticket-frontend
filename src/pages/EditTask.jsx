@@ -1,52 +1,40 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchTasks, postTask } from '../features/taskSlice'
+import { updateTask } from '../features/taskSlice'
 import { getDate } from '../middleware/datetime'
-
-// do time and ID automatically, accept other fields
-// make severity and status enums
-// on post > fetch up to date task list, so you have an accurate ID, use that id, and fetch time...
-// you could have a server state management to prevent multiple bugs from submitting... e.g: adding bug status
 
 export default function EditTask({ taskUID }) {
 
-    const tempDate = new Date()
+    // Hooks
     const dispatch = useDispatch()
+    const [task, setTask] = useState({})
 
-    const [task, updateTask] = useState({
-        title: "",
-        desc: "",
-        severity: "",
-        status: "",
-        time_created: tempDate,
-        time_updated: tempDate,
-    })
-
+    // Load the current task from redux state
     const importTask = useSelector(state =>
-
         state.task.tasks.filter(taskObj => {
             return taskObj.uid === taskUID
         })[0]
-
     )
 
+    // Update local task w/ imported task
     useEffect(() => {
-        updateTask(importTask)
+        setTask(importTask)
     }, [importTask])
 
-    const submitTask = async () => {
+    // Middleware submit function so that only editable data is submitted
+    const submitTaskUpdate = async () => {
 
-        const currentTime = await getDate()
+        const updatedTaskFields = {
+            "id": task._id,
+            "title": task.title,
+            "desc": task.desc,
+            "status": task.status,
+            "severity": task.severity,
+            "time_updated": new Date()
+        }
 
-        updateTask({
-            ...task,
-            time_created: currentTime,
-            time_updated: currentTime
-        })
-
-        dispatch(postTask(task))
+        dispatch(updateTask(updatedTaskFields))
     }
-
 
     return (
         <div>
@@ -58,7 +46,7 @@ export default function EditTask({ taskUID }) {
             <input
                 id='title'
                 value={task.title}
-                onChange={e => updateTask({ ...task, [e.target.id]: e.target.value })}
+                onChange={e => setTask({ ...task, [e.target.id]: e.target.value })}
             ></input>
             <br />
 
@@ -67,7 +55,7 @@ export default function EditTask({ taskUID }) {
             <textarea
                 id='desc'
                 value={task.desc}
-                onChange={e => updateTask({ ...task, [e.target.id]: e.target.value })}
+                onChange={e => setTask({ ...task, [e.target.id]: e.target.value })}
             />
             <br />
 
@@ -76,7 +64,7 @@ export default function EditTask({ taskUID }) {
             <input
                 id='status'
                 value={task.status}
-                onChange={e => updateTask({ ...task, [e.target.id]: e.target.value })}
+                onChange={e => setTask({ ...task, [e.target.id]: e.target.value })}
             ></input>
             <br />
 
@@ -85,13 +73,13 @@ export default function EditTask({ taskUID }) {
             <input
                 id='severity'
                 value={task.severity}
-                onChange={e => updateTask({ ...task, [e.target.id]: e.target.value })}
+                onChange={e => setTask({ ...task, [e.target.id]: e.target.value })}
             ></input>
             <br />
 
             <button
-                onClick={() => submitTask()}
-            >  Post Task</button>
+                onClick={() => submitTaskUpdate()}
+            >  Update Task</button>
             <br />
 
         </div>
