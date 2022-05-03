@@ -1,0 +1,22 @@
+.nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+    height: 20px;
+    align-items: center;
+}
+
+.nav__logo {
+    color: rebeccapurple;
+    align-items: center;
+}
+
+.nav__links {
+    width: 30%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+}

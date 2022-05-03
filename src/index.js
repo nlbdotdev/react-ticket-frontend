@@ -6,6 +6,9 @@ import App from "./App";
 import Home from "./pages/Home";
 import NewTask from "./pages/NewTask";
 import NotFound from "./pages/NotFound"
+import Tasks from './pages/Tasks';
+import Logout from './pages/Logout';
+import Account from './pages/Account';
 
 const rootElement = document.getElementById("root");
 
@@ -18,6 +21,9 @@ root.render(
         <Route path="/" element={<App />}>
           <Route index element={<Home />} />
           <Route path="newtask" element={<NewTask />} />
+          {/* <Route path="tasks" element={<Tasks />} /> */}
+          <Route path="account" element={<Account />} />
+          <Route path="logout" element={<Logout />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

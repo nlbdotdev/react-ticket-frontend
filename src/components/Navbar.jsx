@@ -1,28 +1,25 @@
 import React from 'react'
-import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchTasks, setActiveTask } from '../features/taskSlice';
+import './Navbar.css'
+import { BugFill, ListTask, PersonCircle, BoxArrowLeft } from 'react-bootstrap-icons';
 
 export default function Navbar() {
-    const dispatch = useDispatch()
+  return (
 
-    return (
-        <nav className='nav'>
-            <Link to="/">Home</Link> |{" "}
-            <Link to="/newtask">New Task</Link> |{" "}
+    <nav className='nav'>
 
-            <button
-                onClick={() => dispatch(fetchTasks())}
-            >Fetch Tasks</button>
-            <br />
+      <div className='nav__logo'>
+        <Link to="/"><BugFill /> React Ticket Tracker</Link>
+      </div>
 
-            |{" "}
-            
-            <button
-                onClick={() => dispatch(setActiveTask(-1))}
-            >+</button>
-            <br />
+      <div className='nav__links'>
 
-        </nav>
-    )
+        <Link to="/account"><PersonCircle /> Account</Link>
+        <Link to="/logout"><BoxArrowLeft /> Logout</Link>
+        <Link to="/newtask"><ListTask /> New Task</Link>
+
+      </div>
+
+    </nav>
+  )
 }

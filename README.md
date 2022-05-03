@@ -38,3 +38,4 @@
 - Repro steps
 - Edit overwrite prevention (lock items when in edit?)
 - Would be nice to save new tasks as draft
+- Would be nice to be able to resize task grids seperators

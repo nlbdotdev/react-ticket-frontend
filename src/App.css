@@ -1,66 +1,71 @@
+body {
+  margin: 0px;
+  padding: 0px;
+}
+
 /* App */
 
 /* componetize */
 
 .app {
-    text-align: center;
-  }
-  
-  /* Top Level */
-  
-  .nav {
-    background-color: rgb(141, 162, 180); 
-  }
-  
-  .main {
-    display: flex;
-  }
-  
-  .tasks {
-    flex: 2;
-    background-color: rgb(151, 221, 209);
-  }
-  
-  .editor {
-    flex: 1;
-    flex-direction: column;
-    background-color: rgb(245, 221, 221);
-  }
-  
-  /* tasks */
-  /* move to own CSS */
+  text-align: center;
+}
+
+/* Top Level */
+
+.nav {
+  background-color: rgb(141, 162, 180);
+}
+
+.main {
+  display: flex;
+}
+
+.tasks {
+  flex: 2;
+  background-color: rgb(151, 221, 209);
+}
+
+.editor {
+  flex: 1;
+  flex-direction: column;
+  background-color: rgb(245, 221, 221);
+}
+
+/* tasks */
+/* move to own CSS */
 
 
-  .task {
-    margin: 10px;
-    display: flex;
-    /* justify-content: space-between; */
-  }
+.task {
+  margin: 10px;
+  display: flex;
+  /* justify-content: space-between; */
+}
 
-  .task:hover {
-    border: red 3px solid;
-    margin: 7px;
-    cursor: pointer;
-  }
-  
-  .task > div {
-    border: #282c34 1px solid;
-    flex: 1;
-  }
-  
-  .task .task__id {
-    flex: 0.5;
-  }
-  
-  .task .task__severity {
-    flex: 0.5;
-  }
-  
-  
-  .task--header {
-    background-color: cadetblue;
-  }
-  
-  .task--task {
-    background-color: rgb(127, 255, 191);
-  }
+.task:hover {
+  border: red 3px solid;
+  margin: 7px;
+  cursor: pointer;
+}
+
+.task>div {
+  border: #282c34 1px solid;
+  flex: 1;
+}
+
+.task .task__id {
+  flex: 0.5;
+}
+
+.task .task__severity {
+  flex: 0.5;
+}
+
+
+.task--header {
+  background-color: cadetblue;
+}
+
+.task--task {
+  background-color: rgb(127, 255, 191);
+}
