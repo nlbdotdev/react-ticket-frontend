@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchTasks, postTask } from '../features/taskSlice'
 import { getDate } from '../middleware/datetime'
+import Select from 'react-select';
+
+// Export and import these, could put in store
 
 // do time and ID automatically, accept other fields
 // make severity and status enums
@@ -12,6 +15,9 @@ export default function NewTask() {
 
   const tempDate = new Date()
   const dispatch = useDispatch()
+
+  const statusOptions = (useSelector(state => state.task.statusOptions))
+  const severityOptions = (useSelector(state => state.task.severityOptions))
 
   const [newTask, setNewTask] = useState({
     title: 'New Task',
@@ -39,50 +45,57 @@ export default function NewTask() {
 
   return (
     <div>
-      New Task Page:
-      <br />
 
-      <label>Title: </label>
+      <div>NEW TASK: </div>
 
-      <input
-        id='title'
-        value={newTask.title}
-        onChange={e => setNewTask({ ...newTask, [e.target.id]: e.target.value })}
-      ></input>
-      <br />
+      <div>
+        <label>Title: </label>
+        <input
+          id='title'
+          value={newTask.title}
+          onChange={e => setNewTask({ ...newTask, [e.target.id]: e.target.value })}
+        ></input>
+      </div>
 
-      <label>Description: </label>
+      <div>
+        <label>Description: </label>
+        <textarea
+          id='desc'
+          value={newTask.desc}
+          onChange={e => setNewTask({ ...newTask, [e.target.id]: e.target.value })}
+        />
+      </div>
 
-      <textarea
-        id='desc'
-        value={newTask.desc}
-        onChange={e => setNewTask({ ...newTask, [e.target.id]: e.target.value })}
-      />
-      <br />
 
+      <div>
+        <label>Status: </label>
+         <Select
+          name="status"
+          value={{
+            label: newTask.status,
+            value: newTask.status
+          }}
+          onChange={e => setNewTask({ ...newTask, "status": e.value })}
+          options={statusOptions}
+        />
+      </div>
 
-      <label>Status: </label>
-
-      <input
-        id='status'
-        value={newTask.status}
-        onChange={e => setNewTask({ ...newTask, [e.target.id]: e.target.value })}
-      ></input>
-      <br />
-
-      <label>Severity: </label>
-
-      <input
-        id='severity'
-        value={newTask.severity}
-        onChange={e => setNewTask({ ...newTask, [e.target.id]: e.target.value })}
-      ></input>
-      <br />
+      <div>
+        <label>Severity: </label>
+        <Select
+          name="severity"
+          value={{
+            label: newTask.severity,
+            value: newTask.severity
+          }}
+          onChange={e => setNewTask({ ...newTask, "severity": e.value })}
+          options={severityOptions}
+        />
+      </div>
 
       <button
         onClick={() => submitTask()}
       >  Post Task</button>
-      <br />
     
     </div>
   )

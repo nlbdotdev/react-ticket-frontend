@@ -42,7 +42,7 @@ body {
   /* justify-content: space-between; */
 }
 
-.task:hover {
+.task--task:hover {
   border: red 3px solid;
   margin: 7px;
   cursor: pointer;

@@ -12,34 +12,22 @@ console.log('url:', url)
 console.log(process.env.REACT_APP_DEV_ENV)
 
 const initialState = {
-    tasks: [
-        // {
-        //     uid: 1,
-        //     title: 'task one',
-        //     status: 'completed',
-        //     priority: 'high'
-        // },
-        // {
-        //     uid: 2,
-        //     title: 'task two',
-        //     status: 'incompleted',
-        //     priority: 'medium'
-        // },
-        // {
-        //     uid: 3,
-        //     title: 'task three',
-        //     status: 'completed',
-        //     priority: 'low'
-        // },
-        // {
-        //     uid: 4,
-        //     title: 'task four',
-        //     status: 'incompleted',
-        //     priority: 'high'
-        // },
-    ],
+    tasks: [],
     // UID of the task to edit, if it is -1, it is treated as a new task
-    activeTask: -1
+    activeTask: -1,
+    severityOptions: [
+        { value: 'High', label: 'High' },
+        { value: 'Medium', label: 'Medium' },
+        { value: 'Low', label: 'Low' },
+    ],
+    statusOptions: [
+        { value: 'open', label: 'open' },
+        { value: 'in progress', label: 'in progress' },
+        { value: 'blocked', label: 'blocked' },
+        { value: 'regression', label: 'regression' },
+        { value: 'closed', label: 'closed' },
+        { value: 'reopen', label: 'reopen' },
+    ]
 }
 
 export const taskSlice = createSlice({

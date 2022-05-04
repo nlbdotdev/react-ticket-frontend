@@ -3,6 +3,7 @@ import Task from '../components/Task'
 import { fetchTasks, setActiveTask } from '../features/taskSlice';
 import { useDispatch } from 'react-redux';
 
+
 export default function Tasks({ tasks }) {
 
     const dispatch = useDispatch()
@@ -10,16 +11,15 @@ export default function Tasks({ tasks }) {
 
 
     return (
-        <div>Tasks Page:
 
+        <div>
 
 
             <button
                 onClick={() => dispatch(fetchTasks())}
             >Fetch Tasks</button>
-            <br />
 
-            |{" "}
+            {" "}|{" "}
 
             <button
                 onClick={() => dispatch(setActiveTask(-1))}
@@ -27,7 +27,7 @@ export default function Tasks({ tasks }) {
             <br />
 
 
-            <div className='tasks'>
+            <div className='task'>
                 <div className="task__uid">ID</div>
                 <div className="task__title">Title</div>
                 <div>Description</div>
