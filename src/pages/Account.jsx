@@ -7,5 +7,7 @@ export default function Account() {
     <div>Account
         <Signup/>    </div>
 
+        
+
   )
 }

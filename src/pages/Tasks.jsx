@@ -23,7 +23,7 @@ export default function Tasks({ tasks }) {
 
             <button
                 onClick={() => dispatch(setActiveTask(-1))}
-            >+</button>
+            >New Task</button>
             <br />
 
 
