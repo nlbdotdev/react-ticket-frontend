@@ -97,7 +97,10 @@ export const fetchTasks = createAsyncThunk('task/fetchTasks', async () => {
 export const postTask = createAsyncThunk('task/postTask', async (data) => {
     const response = await fetch(`${url}/tasks/create-task`, {
         headers: {
-            'Content-Type': 'application/json'
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "access-control-request-headers": "content-type",
+            "x-Trigger": "CORS",
         },
         mode: "cors",
         method: "POST",
