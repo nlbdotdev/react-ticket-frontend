@@ -48,7 +48,7 @@ export const UserSlice = createSlice({
             // would prefer a responeType var or something over error vs success
             .addCase(createUser.fulfilled, (state, action) => {
                 console.log("Post User Fufilled!")
-                console.log('payload:',action.payload)
+                console.log('payload:', action.payload)
                 if (action.payload.error != undefined) {
                     state.error = action.payload.error
                 } else {
@@ -62,6 +62,27 @@ export const UserSlice = createSlice({
             .addCase(createUser.rejected, (state, action) => {
                 console.log("Post User Rejected!")
             })
+
+            // --- Log in user ---
+            .addCase(loginUser.fulfilled, (state, action) => {
+                console.log("Login User Fufilled!")
+                console.log('payload:', action.payload)
+                if (action.payload.error != undefined) {
+                    state.error = action.payload.error
+                } else {
+                    state.message = action.payload.message
+                }
+                // dispatch(fetchUsers())
+            })
+            .addCase(loginUser.pending, (state, action) => {
+                console.log("Login User Pending")
+            })
+            .addCase(loginUser.rejected, (state, action) => {
+                console.log("Login User Rejected!")
+                console.log('payload:', action.payload)
+            })
+
+
             // updateUser
             .addCase(updateUser.fulfilled, (state, action) => {
                 console.log("Update User Fufilled!")
@@ -95,6 +116,22 @@ export const fetchUsers = createAsyncThunk('user/fetchUsers', async () => {
 
 export const createUser = createAsyncThunk('user/postUser', async (data) => {
     const response = await fetch(`${url}/users/create-user`, {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        mode: "cors",
+        method: "POST",
+        body: JSON.stringify(data)
+    })
+
+    console.log(data)
+
+    let responseJSON = await response.json()
+    return responseJSON
+})
+
+export const loginUser = createAsyncThunk('/user/login', async (data) => {
+    const response = await fetch(`${url}/users/login`, {
         headers: {
             'Content-Type': 'application/json'
         },
