@@ -17,7 +17,7 @@ export default function Task({ uid, title, desc, status, severity, author, time_
       <div>Description: {desc}</div>
       <div className="task__severity">{severity}</div>
       <div className="task__status">{status}</div>
-      <div className="task__author">{author}</div>
+      {/* <div className="task__author">{author}</div> */}
       <div className="task__updated">{printDate(time_updated)}</div>
       <div className="task__created">{printDate(time_created)}</div>
     </div>
