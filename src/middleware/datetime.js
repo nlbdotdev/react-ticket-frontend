@@ -2,7 +2,7 @@ import date from 'date-and-time';
 
 // use current time to fix delay
 
-const timeURL = 'http://worldtimeapi.org/api/timezone/gmt'
+const timeURL = 'https://worldtimeapi.org/api/timezone/gmt'
 
 async function getDate() {
     const response = await fetch(timeURL)
