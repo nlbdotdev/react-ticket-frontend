@@ -3,10 +3,12 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 let url = ''
 
 if (process.env.REACT_APP_DEV_ENV === "local") {
-    url = 'http://localhost:3001'
+    url = 'http://localhost:3031/api'
 } else if (process.env.REACT_APP_DEV_ENV === "heroku") {
-    url = 'https://react-ticket-server.herokuapp.com'
-}
+    url = 'https://react-ticket-server.herokuapp.com/api'
+} else (
+    url ='/api'
+)
 
 console.log('url:', url)
 console.log(process.env.REACT_APP_DEV_ENV)
