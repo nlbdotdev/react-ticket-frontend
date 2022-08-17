@@ -3,9 +3,10 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 let url = ''
 
 if (process.env.REACT_APP_DEV_ENV === "local") {
-    url = 'http://localhost:3031/api'
+    // url = 'http://localhost:3031/api'
+    url = 'http://rtt.constructsnippets.com/api'
 } else if (process.env.REACT_APP_DEV_ENV === "heroku") {
-    url = 'https://react-ticket-server.herokuapp.com/api'
+    url = 'https://react-ticket-server.herokuapp.com'
 } else (
     url ='/api'
 )

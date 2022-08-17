@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-// old
+// Needs to be updated
 let url = ''
 
 if (process.env.REACT_APP_DEV_ENV === "local") {
