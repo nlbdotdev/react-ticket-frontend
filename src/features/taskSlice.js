@@ -8,7 +8,7 @@ if (process.env.REACT_APP_DEV_ENV === "local") {
 } else if (process.env.REACT_APP_DEV_ENV === "heroku") {
     url = 'https://react-ticket-server.herokuapp.com'
 } else (
-    url ='/api'
+    url ='http://rtt.constructsnippets.com/api'
 )
 
 console.log('url:', url)
