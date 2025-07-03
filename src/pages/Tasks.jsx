@@ -37,11 +37,17 @@ export default function Tasks({ tasks }) {
                 <div className="task__created">Time Created</div>
             </div>
 
-            {tasks.map((task, idx) =>
-                <Task
-                    key={`task-${idx}`}
-                    {...task}
-                />
+            {Array.isArray(tasks) && tasks.length > 0 ? (
+                tasks.map((task, idx) =>
+                    <Task
+                        key={`task-${idx}`}
+                        {...task}
+                    />
+                )
+            ) : (
+                <div style={{ padding: '20px', textAlign: 'center' }}>
+                    {Array.isArray(tasks) ? 'No tasks found' : 'Loading tasks...'}
+                </div>
             )}
         </div>
     )

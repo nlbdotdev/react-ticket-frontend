@@ -3,12 +3,14 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 let url = ''
 
 if (process.env.REACT_APP_DEV_ENV === "local") {
-    // url = 'http://localhost:3031/api'
-    url = 'http://rtt.constructsnippets.com/api'
+    // url = 'http://localhost:3001/api'
+    url = 'https://react-ticket-backend.vercel.app/api'
 } else if (process.env.REACT_APP_DEV_ENV === "heroku") {
-    url = 'https://react-ticket-server.herokuapp.com'
+    // url = 'https://react-ticket-server.herokuapp.com'
+    url = 'https://react-ticket-backend.vercel.app/api'
 } else (
-    url ='https://rtt.constructsnippets.com/api'
+    // url = 'http://localhost:3001/api'
+    url = 'https://react-ticket-backend.vercel.app/api'
 )
 
 console.log('url:', url)
@@ -88,13 +90,28 @@ export const taskSlice = createSlice({
 })
 
 export const fetchTasks = createAsyncThunk('task/fetchTasks', async () => {
-    const response = await fetch(`${url}/tasks/get-all-tasks`, {
-        mode: "cors",
-        method: "GET"
-    })
+    try {
+        const response = await fetch(`${url}/tasks/get-all-tasks`, {
+            mode: "cors",
+            method: "GET"
+        })
 
-    let responseJSON = await response.json()
-    return responseJSON
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        let responseJSON = await response.json()
+        
+        // Handle error response from backend
+        if (responseJSON.message === "Error") {
+            throw new Error(responseJSON.error || 'Unknown error from server');
+        }
+        
+        return responseJSON
+    } catch (error) {
+        console.error('fetchTasks error:', error);
+        throw error;
+    }
 })
 
 export const postTask = createAsyncThunk('task/postTask', async (data) => {
